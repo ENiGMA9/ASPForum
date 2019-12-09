@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPForum", "ASPForum\ASPForum.csproj", "{930505D5-6EB9-4BB3-98E4-F54D11EA1A3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPForum", "ASPForum\ASPForum.csproj", "{D3B3EF37-ED3D-46ED-A235-CAF9ABB577AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{930505D5-6EB9-4BB3-98E4-F54D11EA1A3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{930505D5-6EB9-4BB3-98E4-F54D11EA1A3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{930505D5-6EB9-4BB3-98E4-F54D11EA1A3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{930505D5-6EB9-4BB3-98E4-F54D11EA1A3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B3EF37-ED3D-46ED-A235-CAF9ABB577AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B3EF37-ED3D-46ED-A235-CAF9ABB577AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B3EF37-ED3D-46ED-A235-CAF9ABB577AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B3EF37-ED3D-46ED-A235-CAF9ABB577AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1B2E4EB3-1733-41B7-8DA8-F9DFCD8CF652}
+		SolutionGuid = {4F4D449F-A60D-49D8-9555-E8F2AAF85304}
 	EndGlobalSection
 EndGlobal
