@@ -171,6 +171,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\ThreadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -252,6 +253,8 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Show.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\AddSubject.cshtml" />
+    <Content Include="Views\Subject\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Thread\" />

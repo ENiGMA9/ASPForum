@@ -15,8 +15,11 @@ namespace ASPForum.Models
         [Required]
         public int Index { get; set; }
 
-        public virtual ICollection<Thread> Threads { get; set; }
+        public int CategoryId;
         public Category Category;
+
+        public virtual ICollection<Thread> Threads { get; set; }
+        
     }
 
     public class SubjectDBContext : DbContext

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "AddSubject";
+}
+
+<h2>AddSubject</h2>
+
+<form method="post" action="/Category/AddSubject">
+
+    <input type="hidden" name="CategoryId" value="@ViewBag.CategoryId" />
+    <br />
+    <label>Subject:</label>
+    <br />
+    <input type="text" name="Name" />
+    <br/>
+
+    <label>Index:</label>
+    <br />
+    <input type="text" name="Index" />
+    <br/>
+    <button type="submit">Add Subject</button>
+</form>

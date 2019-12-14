@@ -21,7 +21,9 @@ namespace ASPForum.Controllers
         public ActionResult Show(int id) {
             Category category = db.Categories.Find(id);
             ViewBag.Category = category;
-            return View();
+            var subjects = from subject in category.Subjects select subject;
+            ViewBag.Subjects = subjects; 
+            return View(); 
         }
 
         public ActionResult New() {
@@ -70,6 +72,24 @@ namespace ASPForum.Controllers
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult AddSubject(int id) {
+            ViewBag.CategoryId = id;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddSubject(Subject subject) {
+
+            try {
+                db.Subjects.Add(subject);
+                db.SaveChanges();
+                return Redirect("/Subject/Show/" + subject.CategoryId);
+            }catch (Exception e) {
+                ViewBag.CategoryId = subject.CategoryId;
+                return View();
+            }
         }
 
     }

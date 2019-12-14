@@ -8,7 +8,17 @@
 <p>@ViewBag.Category.Index</p>
 <br/>
 
+<br />
+
+@foreach (var subject in ViewBag.Subjects) {
+    <p>@subject.name</p> <a href="/Subject/Show/@subject.Id">Show Subject</a>
+}
+
+<br />
+
 <a href="/Category/Edit/@ViewBag.Category.Id">Modify Category</a>
+<br/>
+<a href="/Category/AddSubject/@ViewBag.Category.Id">Add Subject</a>
 
 <form method="post" action="/Category/Delete/@ViewBag.Category.Id">
 
