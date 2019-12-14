@@ -1,17 +1,14 @@
 ﻿using ASPForum.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ASPForum.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
     public class CategoryController : Controller
     {
 
-        private CategoryDBContext db = new CategoryDBContext();
+        private readonly CategoryDBContext db = new CategoryDBContext();
         
         public ActionResult Index() {
             var categories = from category in db.Categories
@@ -31,7 +28,8 @@ namespace ASPForum.Controllers
             return View();
         }
 
-        [HttpPost] 
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult New(Category category) {
             try {
                 db.Categories.Add(category);
@@ -42,6 +40,7 @@ namespace ASPForum.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id) {
             Category category = db.Categories.Find(id);
             ViewBag.Category = category;
@@ -49,6 +48,7 @@ namespace ASPForum.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id, Category requestCategory) {
             try {
                 Category category = db.Categories.Find(id);
@@ -64,6 +64,7 @@ namespace ASPForum.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id) {
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace ASPForum.Models {
     public class Category {
@@ -13,11 +10,14 @@ namespace ASPForum.Models {
         public string Name { get; set; }
         [Required]
         public int Index { get; set; }
+
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 
     public class CategoryDBContext : DbContext {
         public CategoryDBContext() : base("DBConnectionString") { }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
     }
 
 }
