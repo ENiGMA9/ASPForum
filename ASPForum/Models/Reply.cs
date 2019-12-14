@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
 namespace ASPForum.Models
@@ -13,13 +11,11 @@ namespace ASPForum.Models
         [Required]
         public string Content { get; set; }
 
-        public ApplicationUser Author;
-    }
+        public int AuthorId { get; set; }
+        public ApplicationUser Author { get; set; }
 
-    public class ReplyDBContext : DbContext
-    {
-        public ReplyDBContext() : base("DBConnectionString") { }
-        public DbSet<Reply> Replies { get; set; }
-    }
+        public int ThreadId { get; set; }
 
+        public Thread Thread { get; set; }
+    }
 }

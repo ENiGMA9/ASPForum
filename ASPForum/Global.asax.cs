@@ -16,9 +16,6 @@ namespace ASPForum
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
-            Database.SetInitializer<CategoryDBContext>(new DropCreateDatabaseIfModelChanges<CategoryDBContext>());
-            Database.SetInitializer<SubjectDBContext>(new DropCreateDatabaseIfModelChanges<SubjectDBContext>());
-            Database.SetInitializer<ThreadDBContext>(new DropCreateDatabaseIfModelChanges<ThreadDBContext>());
         }
     }
 }

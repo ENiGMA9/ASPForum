@@ -12,17 +12,12 @@ namespace ASPForum.Models
         [Required]
         public string Name { get; set; }
 
-        public Subject Subject;
+        public int SubjectId { get; set; }
+        public Subject Subject {get; set;}
         public virtual ICollection<Reply> Replies { get; set; }
 
-        public ApplicationUser Author;
-    }
-
-    public class ThreadDBContext : DbContext
-    {
-        public ThreadDBContext() : base("DBConnectionString") { }
-        public DbSet<Thread> Threads { get; set; }
-        public DbSet<Reply> Replies { get; set; }
+        public int AuthorId { get; set; }
+        public ApplicationUser Author { get; set; }
     }
 
 }

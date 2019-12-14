@@ -8,8 +8,8 @@ namespace ASPForum.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly CategoryDBContext db = new CategoryDBContext();
-        
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index() {
             var categories = from category in db.Categories
                              orderby category.Index
@@ -26,6 +26,8 @@ namespace ASPForum.Controllers
             return View(); 
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult New() {
             return View();
         }
@@ -74,23 +76,29 @@ namespace ASPForum.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public ActionResult AddSubject(int id) {
+        [HttpGet]
+        [Authorize(Roles = "Administrator, Moderator")]
+        public ActionResult AddSubject(int id)
+        {
             ViewBag.CategoryId = id;
             return View();
         }
-        [HttpPost]
-        public ActionResult AddSubject(Subject subject) {
 
-            try {
+        [HttpPost]
+        [Authorize(Roles = "Administrator, Moderator")]
+        public ActionResult AddSubject(Subject subject)
+        {
+            try
+            {
                 db.Subjects.Add(subject);
                 db.SaveChanges();
-                return Redirect("/Subject/Show/" + subject.CategoryId);
-            }catch (Exception e) {
-                ViewBag.CategoryId = subject.CategoryId;
+                return Redirect("/Category/Show/" + ViewBag.CategoryId);
+            }
+            catch (Exception e)
+            {
+                // ViewBag.CategoryId = subject.CategoryId;
                 return View();
             }
         }
-
     }
 }

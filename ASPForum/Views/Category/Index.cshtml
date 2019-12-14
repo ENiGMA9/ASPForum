@@ -6,14 +6,19 @@
 <h2>Index</h2>
 
 
-@foreach (var category in ViewBag.Categories) {
-    <p>@category.Name</p><a href="/Category/Show/@category.Id">Show category</a>
-    <br />
-    foreach (var subject in category.Subjects) {
-        <p>@subject.name</p> <a href="/Subject/Show/@subject.Id">Show Subject</a>
+@if (ViewBag.Categories != null)
+{
+    foreach (var category in ViewBag.Categories)
+    {
+        <p>@category.Name</p><a href="/Category/Show/@category.Id">Show category</a>
+        <br />
+        foreach (var subject in category.Subjects)
+        {
+            <p>@subject.Name</p> <a href="/Subject/Show/@subject.Id">Show Subject</a>
+        }
+        <br />
+        <hr />
     }
-    <br />
-    <hr />
 }
 
 <br />

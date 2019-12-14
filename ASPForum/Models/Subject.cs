@@ -15,18 +15,11 @@ namespace ASPForum.Models
         [Required]
         public int Index { get; set; }
 
-        public int CategoryId;
-        public Category Category;
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         public virtual ICollection<Thread> Threads { get; set; }
         
-    }
-
-    public class SubjectDBContext : DbContext
-    {
-        public SubjectDBContext() : base("DBConnectionString") { }
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Thread> Threads { get; set; }
     }
 
 }

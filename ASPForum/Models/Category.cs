@@ -14,10 +14,5 @@ namespace ASPForum.Models {
         public virtual ICollection<Subject> Subjects { get; set; }
     }
 
-    public class CategoryDBContext : DbContext {
-        public CategoryDBContext() : base("DBConnectionString") { }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
-    }
 
 }
