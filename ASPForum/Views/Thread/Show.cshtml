@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Show";
+}
+
+
+<div class="container category-container">
+    <div class="row">
+        <div class="col-auto">
+            <h2>@ViewBag.Thread.Name</h2>
+        </div>
+    </div>
+
+    @if (ViewBag.Replies != null)
+    {
+        foreach (var reply in ViewBag.Replies)
+        {
+            @Html.Partial("ShowReplyPartial", (ASPForum.Models.Reply)reply)
+        }
+    }
+    else
+    {
+        <div>There are no replies to this thread.</div>
+    }
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("AddReplyPartial", (Object)ViewBag.Thread)
+    }
+</div>

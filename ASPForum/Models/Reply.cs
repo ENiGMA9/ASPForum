@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ASPForum.Models
 {
@@ -11,11 +11,18 @@ namespace ASPForum.Models
         [Required]
         public string Content { get; set; }
 
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
         public ApplicationUser Author { get; set; }
 
         public int ThreadId { get; set; }
 
         public Thread Thread { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public Reply()
+        {
+            CreatedAt = DateTime.Now;
+        }
     }
 }

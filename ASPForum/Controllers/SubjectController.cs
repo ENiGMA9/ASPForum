@@ -52,7 +52,6 @@ namespace ASPForum.Controllers
         public ActionResult AddThread(int id)
         {
             ViewBag.SubjectId = id;
-            ViewBag.UserId = User.Identity.GetUserId();
             return View();
         }
 
@@ -62,6 +61,7 @@ namespace ASPForum.Controllers
         {
             try
             {
+                thread.AuthorId = User.Identity.GetUserId();
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return Redirect("/Category/Index");

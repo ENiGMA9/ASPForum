@@ -1,10 +1,13 @@
 ﻿using ASPForum.Models;
+using Microsoft.AspNet.Identity;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ASPForum.Controllers
 {
     public class ThreadController : Controller
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
@@ -49,18 +52,28 @@ namespace ASPForum.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Administrator, Moderator")]
+        [Authorize(Roles = "User, Administrator, Moderator")]
         public ActionResult Delete(int id)
         {
             try
             {
-
+                Thread thread = db.Threads.Find(id);
+                db.Threads.Remove(thread);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+        }
+
+        public ActionResult Show(int id)
+        {
+            Thread thread = db.Threads.Find(id);
+            ViewBag.Thread = thread;
+            ViewBag.Replies = from reply in thread.Replies select reply;
+            return View();
         }
     }
 }

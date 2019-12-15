@@ -189,6 +189,14 @@
     <Compile Include="Migrations\201912142239516_Initial.Designer.cs">
       <DependentUpon>201912142239516_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912151026157_NewMigr.cs" />
+    <Compile Include="Migrations\201912151026157_NewMigr.Designer.cs">
+      <DependentUpon>201912151026157_NewMigr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912151138524_AuthorId.cs" />
+    <Compile Include="Migrations\201912151138524_AuthorId.Designer.cs">
+      <DependentUpon>201912151138524_AuthorId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -370,10 +378,12 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Subject\AddThread.cshtml" />
+    <Content Include="Views\Thread\Show.cshtml" />
+    <Content Include="Views\Shared\ShowReplyPartial.cshtml" />
+    <Content Include="Views\Shared\ProfilePartial.cshtml" />
+    <Content Include="Views\Shared\AddReplyPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Thread\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -385,6 +395,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912142239516_Initial.resx">
       <DependentUpon>201912142239516_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912151026157_NewMigr.resx">
+      <DependentUpon>201912151026157_NewMigr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912151138524_AuthorId.resx">
+      <DependentUpon>201912151138524_AuthorId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

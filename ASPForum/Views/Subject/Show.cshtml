@@ -22,9 +22,19 @@
         {
 
             <div class="row align-content-center align-bottom">
-                <a class="col-auto align-self-center" href="/Category/Show/@thread.Id">
+                <a class="col-auto align-self-center" href="/Thread/Show/@thread.Id">
                     <div class="category-title">@thread.Name</div>
+
                 </a>
+                @if (true)
+                {
+                    <form method="post" action="@Url.Action("Thread", "Delete", null, Request.Url.Scheme)/@thread.Id">
+
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button type="submit">Delete Thread</button>
+
+                    </form>
+                }
             </div>
         }
     }
@@ -33,9 +43,3 @@
         <div>This subject has no threads.</div>
     }
 </div>
-
-<br />
-<br />
-<hr />
-<a href="/Category/New"> Add new category </a>
-<br />
