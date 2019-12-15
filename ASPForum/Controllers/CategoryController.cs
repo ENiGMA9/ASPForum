@@ -15,6 +15,7 @@ namespace ASPForum.Controllers
                              orderby category.Index
                              select category;
             ViewBag.Categories = categories;
+            ViewBag.hasRights = User.IsInRole("Administrator");
             return View();
         }
 

@@ -14,17 +14,26 @@
             <div class="row">
                 <div class="col">
                     <div class="row align-content-center align-bottom">
-                        <div class="category-title col-auto ">@category.Name</div>
-                        <a class="col align-self-center" href="/Category/Show/@category.Id">Show category</a>
+                        <a class="col-auto align-self-center" href="/Category/Show/@category.Id">
+                            <div class="category-title">@category.Name</div>
+                        </a>
+                        @if (ViewBag.hasRights)
+                        {
+                            <a class="col-auto align-self-center" href="/Category/Show/@category.Id">Edit</a>
+                            <a class="col-auto align-self-center" href="/Category/Show/@category.Id">Delete</a>
+                        }
                     </div>
                     <hr />
                     <div class=" subjects-container">
                         @foreach (var subject in category.Subjects)
                         {
                             <div class="row">
-                                <p class="col-auto">@subject.Name</p> <a class="col" href="/Subject/Show/@subject.Id">Show Subject</a>
+                                <a class="col" href="/Subject/Show/@subject.Id"><p class="col-auto">@subject.Name</p></a>
                             </div>
                         }
+                        @if (category.Subjects == null || category.Subjects.Count == 0)
+                        {<div>This category is empty.</div>}
+
                     </div>
                     <br />
 

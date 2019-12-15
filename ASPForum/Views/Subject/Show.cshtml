@@ -1,9 +1,41 @@
 ﻿
 @{
-    ViewBag.Title = "Show";
+    ViewBag.Title = "ASPForum";
 }
 
-<h2>Show Subject</h2>
+<div class="container category-container">
+    <div class="row">
+        <div class="col-auto">
+            <h2>@ViewBag.Subject.Name</h2>
+        </div>
+        @if (ViewBag.NewThreadRight)
+        {
+            <a class="col align-self-center" href="/Subject/AddThread/@ViewBag.Subject.Id">
+                <div>New Thread</div>
+            </a>
+        }
+    </div>
 
-<h1>@ViewBag.Subject.Name</h1>
-<p>@ViewBag.Subject.Index</p>
+    @if (ViewBag.Threads != null)
+    {
+        foreach (var thread in ViewBag.Threads)
+        {
+
+            <div class="row align-content-center align-bottom">
+                <a class="col-auto align-self-center" href="/Category/Show/@thread.Id">
+                    <div class="category-title">@thread.Name</div>
+                </a>
+            </div>
+        }
+    }
+    else
+    {
+        <div>This subject has no threads.</div>
+    }
+</div>
+
+<br />
+<br />
+<hr />
+<a href="/Category/New"> Add new category </a>
+<br />

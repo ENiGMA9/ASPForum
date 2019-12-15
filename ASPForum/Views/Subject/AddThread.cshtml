@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Add Thread";
+}
+
+<h2>Add Thread</h2>
+
+<form method="post" action="/Subject/AddThread">
+
+    <input type="hidden" name="AuthorId" value="@ViewBag.UserId" />
+    <input type="hidden" name="SubjectId" value="@ViewBag.SubjectId" />
+    <br />
+    <label>Thread name:</label>
+    <br />
+    <input type="text" name="Name" />
+    <br />
+    <button type="submit">Open Thread</button>
+</form>
