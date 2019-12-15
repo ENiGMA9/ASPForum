@@ -12,11 +12,17 @@ namespace ASPForum.Controllers
 
         public ActionResult Show(int id)
         {
+            var categories = from category in db.Categories
+                             orderby category.Index
+                             select category;
+            ViewBag.Categories = categories;
             Subject subject = db.Subjects.Find(id);
             ViewBag.Subject = subject;
             ViewBag.NewThreadRight = User.IsInRole("User") || User.IsInRole("Moderator") || User.IsInRole("Administrator");
             var threads = from thread in subject.Threads select thread;
             ViewBag.Threads = threads;
+
+            ViewBag.hasModeratorRight = (User.IsInRole("Administrator") || User.IsInRole("Moderator"));
             return View();
         }
 
@@ -47,6 +53,8 @@ namespace ASPForum.Controllers
             }
         }
 
+
+
         [HttpGet]
         [Authorize(Roles = "User, Administrator, Moderator")]
         public ActionResult AddThread(int id)
@@ -72,5 +80,46 @@ namespace ASPForum.Controllers
                 return View();
             }
         }
+
+        [HttpDelete]
+        [Authorize(Roles=("Administrator, Moderator"))]
+        public ActionResult Delete(int id) {
+            Subject subject = db.Subjects.Find(id);
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        [Authorize(Roles = "Administrator, Moderator")]
+        public ActionResult Edit(int id, int id2) {
+            Category category = db.Categories.Find(id);
+            ViewBag.OldCategory = category;
+            return View();
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Administrator, Moderator")]
+        public ActionResult MoveSubject(int id, int id2, Category OldCategory) {
+            try {
+                Subject subject = db.Subjects.Find(id);
+                Category newCategory = db.Categories.Find(id2);
+
+                subject.CategoryId = id2;
+                subject.Category = newCategory;
+
+                OldCategory.Subjects.Remove(subject);
+                newCategory.Subjects.Add(subject);
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e) {
+                return View();
+            }
+        }
+        
+
     }
 }

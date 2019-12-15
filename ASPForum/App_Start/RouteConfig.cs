@@ -15,9 +15,11 @@ namespace ASPForum
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}/{id2}",
+                defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional, id2 = UrlParameter.Optional }
             );
+
+
         }
     }
 }

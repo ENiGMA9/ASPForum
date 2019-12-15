@@ -58,9 +58,15 @@ namespace ASPForum.Controllers
             try
             {
                 Thread thread = db.Threads.Find(id);
-                db.Threads.Remove(thread);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (thread.AuthorId == User.Identity.GetUserId()) {
+                    db.Threads.Remove(thread);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else {
+                    return HttpNotFound();
+                }
+                
             }
             catch
             {

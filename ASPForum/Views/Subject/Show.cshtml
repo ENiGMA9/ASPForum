@@ -16,6 +16,19 @@
         }
     </div>
 
+    @if ( User.IsInRole("Administrator") || User.IsInRole("Moderator") ) {
+        <a class="col align-self-center" href="/Subject/Delete/@ViewBag.Subject.Id">Delete Subject</a>
+        <br/>
+        <hr/>
+
+        foreach (var category in ViewBag.Categories) {
+            <a class="col-auto align-self-center" href="/Subject/MoveSubject/@ViewBag.Subject.Id/@category.Id">@category.Name</a>
+            <br/>
+        }
+
+        <br/>
+    }
+
     @if (ViewBag.Threads != null)
     {
         foreach (var thread in ViewBag.Threads)
