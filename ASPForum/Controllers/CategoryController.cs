@@ -92,7 +92,7 @@ namespace ASPForum.Controllers
             {
                 db.Subjects.Add(subject);
                 db.SaveChanges();
-                return Redirect("/Category/Show/" + ViewBag.CategoryId);
+                return Redirect("/Category/Show/" + subject.Id);
             }
             catch (Exception e)
             {

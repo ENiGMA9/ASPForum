@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+div.category-container {
+    background-color: lightblue;
+    margin-bottom: 20px;
+}
+
+.category-container .category-title{
+    font-size: 25px;
+}

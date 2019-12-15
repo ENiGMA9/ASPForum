@@ -1,23 +1,36 @@
 ﻿
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "ASPForum";
 }
 
-<h2>Index</h2>
+<h2>ASPForum</h2>
 
 
 @if (ViewBag.Categories != null)
 {
     foreach (var category in ViewBag.Categories)
     {
-        <p>@category.Name</p><a href="/Category/Show/@category.Id">Show category</a>
-        <br />
-        foreach (var subject in category.Subjects)
-        {
-            <p>@subject.Name</p> <a href="/Subject/Show/@subject.Id">Show Subject</a>
-        }
-        <br />
-        <hr />
+        <div class="container category-container">
+            <div class="row">
+                <div class="col">
+                    <div class="row align-content-center align-bottom">
+                        <div class="category-title col-auto ">@category.Name</div>
+                        <a class="col align-self-center" href="/Category/Show/@category.Id">Show category</a>
+                    </div>
+                    <hr />
+                    <div class=" subjects-container">
+                        @foreach (var subject in category.Subjects)
+                        {
+                            <div class="row">
+                                <p class="col-auto">@subject.Name</p> <a class="col" href="/Subject/Show/@subject.Id">Show Subject</a>
+                            </div>
+                        }
+                    </div>
+                    <br />
+
+                </div>
+            </div>
+        </div>
     }
 }
 
