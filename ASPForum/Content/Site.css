@@ -34,4 +34,6 @@ div.category-container {
 
 .reply-row {
     background-color: yellow;
+    padding-bottom: 50px;
+    border: solid 1px black;
 }

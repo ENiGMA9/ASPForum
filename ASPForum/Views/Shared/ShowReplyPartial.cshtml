@@ -4,7 +4,17 @@
             @Html.Partial("ProfilePartial", (Object)Model.Author)
         </div>
         <div class="col content-col">
-            @Model.Content
+            <div class="row">
+                <div class="col reply-details">
+                    @Model.CreatedAt
+                </div>
+            </div>
+            <div class="row">
+                <div class="col reply-copntent">
+                    @Model.Content
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

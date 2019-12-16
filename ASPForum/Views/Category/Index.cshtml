@@ -19,13 +19,18 @@
                         </a>
                         @if (ViewBag.hasRights)
                         {
-                            <a class="col-auto align-self-center" href="/Category/AddSubject/@category.Id">Add Subject</a>
-                            <a class="col-auto align-self-center" href="/Category/EditCategory/@category.Id">Edit</a>
+
+                            <form method="post" action="/Category/AddSubject/@category.Id">
+                                <button type="submit" class="btn btn-primary m-1">Add Subject</button>
+                            </form>
+                            <form method="post" action="/Category/Edit/@category.Id">
+                                <button type="submit" class="btn btn-warning m-1">Edit</button>
+                            </form>
                             <form method="post" action="/Category/Delete/@category.Id">
 
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                <button type="submit">Delete Category</button>
+                                <button type="submit" class="btn btn-danger m-1">Delete Category</button>
 
                             </form>
                         }
