@@ -41,7 +41,7 @@
 
                 </a>
                 @if ((thread.AuthorId == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
-                    <form method="post" action="@Url.Action("Thread", "Delete", null, Request.Url.Scheme)/@thread.Id">
+                    <form method="post" action="/Thread/Delete/@thread.Id">
 
                         @Html.HttpMethodOverride(HttpVerbs.Delete)
                         <button type="submit">Delete Thread</button>
