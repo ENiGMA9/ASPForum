@@ -93,6 +93,10 @@ namespace ASPForum.Controllers
             //ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
             return View();
         }
+        
+
+
+       
 
     }
 }
