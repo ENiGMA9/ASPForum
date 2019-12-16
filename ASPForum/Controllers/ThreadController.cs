@@ -61,7 +61,7 @@ namespace ASPForum.Controllers
                 if (thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
                     db.Threads.Remove(thread);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect("/Category/Index");
                 }
                 else {
                     return HttpNotFound();
