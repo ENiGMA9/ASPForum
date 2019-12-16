@@ -27,3 +27,13 @@ div.category-container {
 .category-container .category-title{
     font-size: 25px;
 }
+
+.profile-container {
+    background-color: gray;
+}
+
+.reply-row {
+    background-color: yellow;
+    padding-bottom: 50px;
+    border: solid 1px black;
+}

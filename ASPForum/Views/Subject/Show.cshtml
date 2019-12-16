@@ -11,12 +11,16 @@
 
     </div>
 
-    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
-        <a class="col align-self-center" href="/Subject/Delete/@ViewBag.Subject.Id">Delete Subject</a>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+    {
+        <form method="post" action="/Subject/Delete/@ViewBag.Subject.Id">
+            <button type="submit" class="btn btn-danger m-1">Delete Subject</button>
+        </form>
         <br />
 
         <p class="col-auto align-self-center"> Change parent category:</p>
-        foreach (var category in ViewBag.Categories) {
+        foreach (var category in ViewBag.Categories)
+        {
             <a class="col-auto align-self-center" href="/Subject/MoveSubject/@ViewBag.Subject.Id/@category.Id">@category.Name</a>
             <br />
         }
@@ -26,32 +30,38 @@
 
     <hr />
 
-    @if (ViewBag.NewThreadRight) {
-        <a class="col align-self-center" href="/Subject/AddThread/@ViewBag.Subject.Id">
-            <div>New Thread</div>
-        </a>
+    @if (ViewBag.NewThreadRight)
+    {
+
+        <form method="get" action="/Subject/AddThread/@ViewBag.Subject.Id">
+            <button type="submit" class="btn btn-primary m-1">New Thread</button>
+        </form>
     }
 
-    @if (ViewBag.Threads != null) {
-        foreach (var thread in ViewBag.Threads) {
+    @if (ViewBag.Threads != null)
+    {
+        foreach (var thread in ViewBag.Threads)
+        {
 
             <div class="row align-content-center align-bottom">
                 <a class="col-auto align-self-center" href="/Thread/Show/@thread.Id">
                     <div class="category-title">@thread.Name</div>
 
                 </a>
-                @if ((thread.AuthorId == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
+                @if ((thread.AuthorId == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                {
                     <form method="post" action="/Thread/Delete/@thread.Id">
 
                         @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button type="submit">Delete Thread</button>
+                        <button type="submit" class="btn btn-danger m-1">Delete Thread</button>
 
                     </form>
                 }
             </div>
         }
     }
-    else {
+    else
+    {
         <div>This subject has no threads.</div>
     }
 </div>

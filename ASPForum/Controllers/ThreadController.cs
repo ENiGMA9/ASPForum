@@ -1,5 +1,6 @@
 ﻿using ASPForum.Models;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -98,5 +99,24 @@ namespace ASPForum.Controllers
 
        
 
+
+        [HttpPost]
+        [Authorize(Roles = "User, Administrator, Moderator")]
+        public ActionResult AddReply(Reply reply)
+        {
+            try
+            {
+                reply.AuthorId = User.Identity.GetUserId();
+                reply.Author = db.Users.FirstOrDefault(user => user.Id == reply.AuthorId);
+                db.Replies.Add(reply);
+                db.SaveChanges();
+                return Redirect("/Category/Index");
+            }
+            catch (Exception e)
+            {
+                // ViewBag.CategoryId = subject.CategoryId;
+                return View();
+            }
+        }
     }
 }
