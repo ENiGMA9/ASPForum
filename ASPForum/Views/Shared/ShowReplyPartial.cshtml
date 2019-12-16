@@ -1,10 +1,10 @@
 ﻿<div class="container reply-container">
     <div class="row main-row">
         <div class="col-3 profile-col">
-            @Html.Partial("ProfilePartial", (Object)Model.reply.Author)
+            @Html.Partial("ProfilePartial", (Object)Model.Author)
         </div>
         <div class="col content-col">
-            @Model.reply.Content
+            @Model.Content
         </div>
     </div>
 </div>

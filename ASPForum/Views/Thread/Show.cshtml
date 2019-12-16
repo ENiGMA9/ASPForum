@@ -6,7 +6,7 @@
 <div class="container category-container">
     <div class="row">
         <div class="col-3">
-            @ViewBag.Thread.Author.UserName
+            @Html.Partial("ProfilePartial", (ASPForum.Models.ApplicationUser)ViewBag.Thread.Author)
         </div>
         <div class="col-auto">
             <h2>@ViewBag.Thread.Name</h2>
@@ -16,9 +16,11 @@
 
     @if (ViewBag.Replies != null)
     {
-        foreach (var reply in ViewBag.Replies)
+        foreach (var reply in ViewBag.Thread.Replies)
         {
-            @Html.Partial("ShowReplyPartial", (ASPForum.Models.Reply)reply)
+            <div class="row reply-row">
+                @Html.Partial("ShowReplyPartial", (ASPForum.Models.Reply)reply)
+            </div>
         }
     }
     else
