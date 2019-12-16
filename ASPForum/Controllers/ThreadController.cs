@@ -79,8 +79,9 @@ namespace ASPForum.Controllers
             Thread thread = db.Threads.Find(id);
             ViewBag.Thread = thread;
             ViewBag.Replies = from reply in thread.Replies select reply;
-            ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
+            //ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
             return View();
         }
+
     }
 }

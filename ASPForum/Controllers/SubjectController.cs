@@ -22,7 +22,7 @@ namespace ASPForum.Controllers
             var threads = from thread in subject.Threads select thread;
             ViewBag.Threads = threads;
 
-            ViewBag.hasModeratorRight = (User.IsInRole("Administrator") || User.IsInRole("Moderator"));
+            ViewBag.hasModeratorRight = (User.IsInRole("Administrator") || User.IsInRole("Moderator")); 
             return View();
         }
 
@@ -89,20 +89,12 @@ namespace ASPForum.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
+       
         [Authorize(Roles = "Administrator, Moderator")]
-        public ActionResult Edit(int id, int id2) {
-            Category category = db.Categories.Find(id);
-            ViewBag.OldCategory = category;
-            return View();
-        }
-
-        [HttpPut]
-        [Authorize(Roles = "Administrator, Moderator")]
-        public ActionResult MoveSubject(int id, int id2, Category OldCategory) {
+        public ActionResult MoveSubject(int id, int id2) {
             try {
                 Subject subject = db.Subjects.Find(id);
+                Category OldCategory = db.Categories.Find(id);
                 Category newCategory = db.Categories.Find(id2);
 
                 subject.CategoryId = id2;
@@ -113,7 +105,7 @@ namespace ASPForum.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return Redirect("/Category/Index");
             }
             catch (Exception e) {
                 return View();
