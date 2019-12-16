@@ -53,5 +53,8 @@
 <br />
 <br />
 <hr />
-<a href="/Category/New"> Add new category </a>
-<br />
+@if (User.IsInRole("Administrator"))
+{
+    <a href="/Category/New"> Add new category </a>
+    <br />
+}

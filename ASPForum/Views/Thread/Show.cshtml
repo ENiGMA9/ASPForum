@@ -5,8 +5,12 @@
 
 <div class="container category-container">
     <div class="row">
+        <div class="col-3">
+            @ViewBag.Thread.Author.UserName
+        </div>
         <div class="col-auto">
             <h2>@ViewBag.Thread.Name</h2>
+            <h2>@ViewBag.Thread.Content</h2>
         </div>
     </div>
 

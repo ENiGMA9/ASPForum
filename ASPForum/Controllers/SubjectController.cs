@@ -70,6 +70,7 @@ namespace ASPForum.Controllers
             try
             {
                 thread.AuthorId = User.Identity.GetUserId();
+                thread.Author = db.Users.FirstOrDefault(user => user.Id == thread.AuthorId);
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return Redirect("/Category/Index");
