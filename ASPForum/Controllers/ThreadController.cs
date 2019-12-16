@@ -78,6 +78,17 @@ namespace ASPForum.Controllers
         {
             Thread thread = db.Threads.Find(id);
             ViewBag.Thread = thread;
+
+            // Hack to fix old DB inserts
+            if(thread.Author == null && thread.AuthorId != null)
+            {
+                if (TryUpdateModel(thread))
+                {
+                    thread.Author = db.Users.FirstOrDefault(user => user.Id == thread.AuthorId);
+                    db.SaveChanges();
+                }
+            }
+
             ViewBag.Replies = from reply in thread.Replies select reply;
             //ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
             return View();
