@@ -5,7 +5,6 @@
 
 <h2>ASPForum</h2>
 
-
 @if (ViewBag.Categories != null)
 {
     foreach (var category in ViewBag.Categories)
@@ -20,9 +19,9 @@
                         @if (ViewBag.hasRights)
                         {
 
-                            <form method="post" action="/Category/AddSubject/@category.Id">
-                                <button type="submit" class="btn btn-primary m-1">Add Subject</button>
-                            </form>
+                        <form method="post" action="/Category/AddSubject/@category.Id">
+                            <button type="submit" class="btn btn-primary m-1">Add Subject</button>
+                        </form>
                             <form method="post" action="/Category/Edit/@category.Id">
                                 <button type="submit" class="btn btn-warning m-1">Edit</button>
                             </form>
