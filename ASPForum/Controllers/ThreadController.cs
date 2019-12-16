@@ -58,7 +58,7 @@ namespace ASPForum.Controllers
             try
             {
                 Thread thread = db.Threads.Find(id);
-                if (thread.AuthorId == User.Identity.GetUserId()) {
+                if (thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
                     db.Threads.Remove(thread);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -79,6 +79,7 @@ namespace ASPForum.Controllers
             Thread thread = db.Threads.Find(id);
             ViewBag.Thread = thread;
             ViewBag.Replies = from reply in thread.Replies select reply;
+            ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
             return View();
         }
     }

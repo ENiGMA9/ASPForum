@@ -6,18 +6,9 @@
 
 <h1>@ViewBag.Category.Name</h1>
 <p>@ViewBag.Category.Index</p>
-<br/>
-
-<br />
-
-@foreach (var subject in ViewBag.Subjects) {
-    <p>@subject.Name</p> <a href="/Subject/Show/@subject.Id">Show Subject</a>
-}
-
-<br />
 
 <a href="/Category/Edit/@ViewBag.Category.Id">Modify Category</a>
-<br/>
+<br />
 <a href="/Category/AddSubject/@ViewBag.Category.Id">Add Subject</a>
 
 <form method="post" action="/Category/Delete/@ViewBag.Category.Id">
@@ -27,6 +18,17 @@
     <button type="submit">Delete Category</button>
 
 </form>
+<br />
+
+<br />
+
+@foreach (var subject in ViewBag.Subjects)
+{
+    <p>@subject.Name</p> <a href="/Subject/Show/@subject.Id">Show Subject</a>
+}
+
+<br />
+
 
 <hr />
 <a href="/Category/Index">Back to category list</a>

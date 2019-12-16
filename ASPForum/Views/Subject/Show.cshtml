@@ -39,7 +39,7 @@
                     <div class="category-title">@thread.Name</div>
 
                 </a>
-                @if (true)
+                @if (ViewBag.HasThreadDeleteRight)
                 {
                     <form method="post" action="@Url.Action("Thread", "Delete", null, Request.Url.Scheme)/@thread.Id">
 
