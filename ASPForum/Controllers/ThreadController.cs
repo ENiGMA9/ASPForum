@@ -97,7 +97,21 @@ namespace ASPForum.Controllers
         
 
 
-       
+       [HttpDelete]
+       [Authorize(Roles = "User, Administrator, Moderator")]
+       public ActionResult DeleteReply(int id, int id2) {
+            Thread thread = db.Threads.Find(id);
+            Reply reply = db.Replies.Find(id2);
+            if((reply.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
+                db.Replies.Remove(reply);
+                thread.Replies.Remove(reply);
+                db.SaveChanges();
+                return Redirect("Thread/Show/" + thread.Id);
+            }
+            else {
+                return HttpNotFound();
+            }
+       }
 
 
         [HttpPost]

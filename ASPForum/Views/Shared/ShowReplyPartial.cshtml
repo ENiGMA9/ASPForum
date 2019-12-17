@@ -1,4 +1,6 @@
-﻿<div class="container reply-container">
+﻿@using Microsoft.AspNet.Identity;
+
+<div class="container reply-container">
     <div class="row main-row">
         <div class="col-3 profile-col">
             @Html.Partial("ProfilePartial", (Object)Model.Author)
@@ -8,6 +10,14 @@
                 <div class="col reply-details">
                     @Model.CreatedAt
                 </div>
+                @if ((Model.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
+                    <div class="col reply-details">
+                        <form method="post" action="/Thread/DeleteReply/@Model.ThreadId/@Model.Id">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-danger m-1">Delete reply</button>
+                        </form>
+                    </div>
+                }
             </div>
             <div class="row">
                 <div class="col reply-copntent">
