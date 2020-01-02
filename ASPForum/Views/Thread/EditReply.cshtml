@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "EditReply";
+}
+
+<h2>EditReply</h2>
+
+<form method="post" action="/Thread/EditReply/@ViewBag.Reply.ThreadId/@ViewBag.Reply.Id">
+
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    <label>Content:</label>
+    <br />
+    <input type="text" name="Content" value="@ViewBag.Reply.Content" />
+    <br /><br />
+
+    <input type="hidden" name="AuthorId" value="@ViewBag.Reply.AuthorId" />
+    <input type="hidden" name="Author" value="@ViewBag.Reply.Author" />
+    <input type="hidden" name="ThreadId" value="@ViewBag.Reply.ThreadId" />
+    <input type="hidden" name="Thread" value="@ViewBag.Reply.Thread" />
+    <input type="hidden" name="CreatedAt" value="@ViewBag.Reply.CreatedAt" />
+
+    <button type="submit">Save Changes</button>
+
+
+</form>

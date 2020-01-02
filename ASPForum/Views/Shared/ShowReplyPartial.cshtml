@@ -18,6 +18,13 @@
                         </form>
                     </div>
                 }
+                @if((Model.Author.Id == User.Identity.GetUserId())) {
+                    <div class="col reply-details">
+                        <form method="post" action="/Thread/EditReply/@Model.ThreadId/@Model.Id">
+                            <button type="submit" class="btn btn-warning">Edit Reply</button>
+                        </form>
+                    </div>
+                }
             </div>
             <div class="row">
                 <div class="col reply-copntent">

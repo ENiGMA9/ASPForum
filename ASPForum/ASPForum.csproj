@@ -384,6 +384,7 @@
     <Content Include="Views\Shared\ShowReplyPartial.cshtml" />
     <Content Include="Views\Shared\ProfilePartial.cshtml" />
     <Content Include="Views\Shared\AddReplyPartial.cshtml" />
+    <Content Include="Views\Thread\EditReply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Reply\" />

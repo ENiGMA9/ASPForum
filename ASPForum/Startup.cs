@@ -56,7 +56,8 @@ namespace ASPForum
                 var role = new IdentityRole();
                 role.Name = "Visitor";
                 roleManager.Create(role);
-            }
+            }
+
         }
     }
 

@@ -102,17 +102,45 @@ namespace ASPForum.Controllers
        public ActionResult DeleteReply(int id, int id2) {
             Thread thread = db.Threads.Find(id);
             Reply reply = db.Replies.Find(id2);
-            if((reply.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
+            if((reply.Author != null && reply.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
                 db.Replies.Remove(reply);
                 thread.Replies.Remove(reply);
                 db.SaveChanges();
-                return Redirect("Thread/Show/" + thread.Id);
+                return Redirect("/Thread/Show/" + thread.Id);
             }
             else {
                 return HttpNotFound();
             }
        }
 
+
+        public ActionResult EditReply(int id, int id2) {
+            Thread thread = db.Threads.Find(id);
+            Reply reply = db.Replies.Find(id2);
+            ViewBag.Thread = thread;
+            ViewBag.Reply = reply;
+            return View();
+        }
+
+
+        [HttpPut]
+        public ActionResult EditReply(int id, int id2, Reply newReply) {
+            try {
+                Thread thread = db.Threads.Find(id);
+                Reply reply = db.Replies.Find(id2);
+                if (reply.AuthorId == User.Identity.GetUserId()) {
+                    reply.Content = newReply.Content;
+                    db.SaveChanges();
+                }
+                else {
+                    return HttpNotFound();
+                }
+                return Redirect("/Thread/Show/" + thread.Id);
+            }catch(Exception e) {
+                return View();
+            }
+        }
+        
 
         [HttpPost]
         [Authorize(Roles = "User, Administrator, Moderator")]
