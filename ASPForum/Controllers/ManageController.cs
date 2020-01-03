@@ -64,6 +64,9 @@ namespace ASPForum.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            ViewBag.User = UserManager.FindById(userId);
+            ViewBag.UserRoles = UserManager.GetRoles(userId);
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

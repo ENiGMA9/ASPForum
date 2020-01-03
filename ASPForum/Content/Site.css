@@ -24,7 +24,7 @@ div.category-container {
     margin-bottom: 20px;
 }
 
-.category-container .category-title{
+.category-container .category-title {
     font-size: 25px;
 }
 
@@ -36,4 +36,9 @@ div.category-container {
     background-color: yellow;
     padding-bottom: 50px;
     border: solid 1px black;
+}
+
+.avatar-picture img{
+    width: 200px;
+    height: 200px;
 }

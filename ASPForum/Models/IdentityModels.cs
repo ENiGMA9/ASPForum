@@ -9,10 +9,10 @@ namespace ASPForum.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public string Avatar { get; set; }
+        public string Avatar { get; set; } = "https://i1.wp.com/uhwfoundation.org/wp-content/uploads/2017/10/og-image-200x200.png";
         public string Location { get; set; }
+        public string Description { get; set; }
         public string JoinDate { get; set; }
-        public string LastSeen { get; set; }
 
 
 

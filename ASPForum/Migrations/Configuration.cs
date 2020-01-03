@@ -10,6 +10,8 @@ namespace ASPForum.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = false;
+
             ContextKey = "ASPForum.Models.ApplicationDbContext";
         }
 
