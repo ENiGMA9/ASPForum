@@ -47,21 +47,25 @@
         foreach (var thread in Model.Threads)
         {
 
-            <div class="row align-content-center align-bottom">
-                <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryId/@Model.Id/@thread.Id">
-                    <div class="category-title">@thread.Name</div>
+        <div class="row align-content-center align-bottom">
+            <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryId/@Model.Id/@thread.Id">
+                <div class="category-title">@thread.Name</div>
 
-                </a>
-                @if ((thread.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            </a>
+            @if ((thread.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+
+                using (Html.BeginForm(actionName: "Delete", controllerName: "Thread", method: FormMethod.Post))
                 {
-                    <form method="post" action="/Thread/Delete/@thread.Id">
+                    @Html.Hidden("threadId", thread.Id)
+                    @Html.Hidden("categoryId", Model.Category.Id)
+                    @Html.Hidden("subjectId", Model.Id)
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button type="submit" class="btn btn-danger m-1">Delete Thread</button>
-
-                    </form>
+                    <button type="submit" class="btn btn-danger m-1">Delete Thread</button>
                 }
-            </div>
+            }
+        </div>
         }
     }
     else

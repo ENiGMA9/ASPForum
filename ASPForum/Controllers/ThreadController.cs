@@ -54,7 +54,7 @@ namespace ASPForum.Controllers
 
         [HttpDelete]
         [Authorize(Roles = "User, Administrator, Moderator")]
-        public ActionResult Delete(int threadId)
+        public ActionResult Delete(int threadId, int categoryId, int subjectId)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace ASPForum.Controllers
                 if (thread.Author.Id == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
                     db.Threads.Remove(thread);
                     db.SaveChanges();
-                    return Redirect("/Category/Index");
+                    return Redirect("/Subject/Show/"+ categoryId + "/" + subjectId);
                 }
                 else {
                     return HttpNotFound();
