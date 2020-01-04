@@ -1,10 +1,2 @@
-﻿<form method="post" action="/Thread/AddReply">
+﻿@model ASPForum.Models.AddReplyModel
 
-    <input type="hidden" name="ThreadId" value="@Model.Id" />
-    <br />
-    <label>Reply:</label>
-    <br />
-    <input type="text" name="Content" />
-    <br />
-    <button type="submit" class="btn btn-primary">Reply</button>
-</form>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ASPForum.Models.Thread
+
+@{
     ViewBag.Title = "Show";
 }
 
@@ -6,20 +8,20 @@
 <div class="container category-container">
     <div class="row">
         <div class="col-3">
-            @Html.Partial("ProfilePartial", (ASPForum.Models.ApplicationUser)ViewBag.Thread.Author)
+            @Html.Partial("ProfilePartial", @Model.Author)
         </div>
         <div class="col-auto">
-            <h2>@ViewBag.Thread.Name</h2>
-            <h2>@ViewBag.Thread.Content</h2>
+            <h2>@Model.Name</h2>
+            <h2>@Model.Content</h2>
         </div>
     </div>
 
-    @if (ViewBag.Replies != null)
+    @if (Model.Replies != null)
     {
-        foreach (var reply in ViewBag.Thread.Replies)
+        foreach (var reply in Model.Replies)
         {
             <div class="row reply-row">
-                @Html.Partial("ShowReplyPartial", (ASPForum.Models.Reply)reply)
+                @Html.Partial("ShowReplyPartial", reply)
             </div>
         }
     }
@@ -30,6 +32,17 @@
 
     @if (Request.IsAuthenticated)
     {
-        @Html.Partial("AddReplyPartial", (Object)ViewBag.Thread)
+        //  @Html.Partial("AddReplyPartial", (ASPForum.Models.AddReplyModel)ViewBag.AddReplyModel)
+        using (Html.BeginForm(actionName: "AddReply", controllerName: "Thread", method: FormMethod.Post))
+        {
+
+            @Html.Hidden("categoryId",(int)ViewBag.CategoryId)
+            @Html.Hidden("threadId", Model.Id)
+            @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
+
+            @Html.TextBox("Content")
+
+            <button type="submit" class="btn btn-primary">Reply</button>
+        }
     }
 </div>

@@ -10,20 +10,19 @@ namespace ASPForum.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Show(int id)
+        public ActionResult Show(int categoryId, int subjectId)
         {
             var categories = from category in db.Categories
                              orderby category.Index
                              select category;
             ViewBag.Categories = categories;
-            Subject subject = db.Subjects.Find(id);
-            ViewBag.Subject = subject;
+            Subject subject = db.Subjects.Find(subjectId);
             ViewBag.NewThreadRight = User.IsInRole("User") || User.IsInRole("Moderator") || User.IsInRole("Administrator");
             var threads = from thread in subject.Threads select thread;
             ViewBag.Threads = threads;
-
-            ViewBag.hasModeratorRight = (User.IsInRole("Administrator") || User.IsInRole("Moderator")); 
-            return View();
+            ViewBag.hasModeratorRight = (User.IsInRole("Administrator") || User.IsInRole("Moderator"));
+            ViewBag.categoryId = categoryId;
+            return View(subject);
         }
 
 

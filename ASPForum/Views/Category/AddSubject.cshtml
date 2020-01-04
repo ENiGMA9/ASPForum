@@ -4,18 +4,20 @@
 
 <h2>Add Subject</h2>
 
-<form method="post" action="/Category/AddSubject">
+@using (Html.BeginForm(actionName: "AddSubject", controllerName: "Category", method: FormMethod.Post))
+{
+    @Html.Hidden("CategoryId", (int)ViewBag.CategoryId)
+    @Html.AntiForgeryToken()
 
-    <input type="hidden" name="CategoryId" value="@ViewBag.CategoryId" />
+    @Html.Label("Subject:")
     <br />
-    <label>Subject:</label>
-    <br />
-    <input type="text" name="Name" />
-    <br/>
+    @Html.TextBox("Name")
 
-    <label>Index:</label>
     <br />
-    <input type="text" name="Index" />
-    <br/>
-    <button type="submit">Add Subject</button>
-</form>
+    @Html.Label("Index:")
+    <br />
+    @Html.TextBox("Index", "0")
+
+    <br />
+    <button type="submit" class="btn btn-success">Add Subject</button>
+}

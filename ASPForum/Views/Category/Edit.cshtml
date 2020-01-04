@@ -1,23 +1,23 @@
-﻿
-
+﻿@model ASPForum.Models.Category
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
 
-<form method="post" action="/Category/Edit/@ViewBag.Category.Id">
 
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Category", method: FormMethod.Post))
+{
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
-    <label>Nume</label>
+    @Html.LabelFor(model=> model.Name, "Nume")
     <br />
-    <input type="text" name="Name" value="@ViewBag.Category.Name" />
+
+    @Html.EditorFor( model => model.Name)
     <br /><br />
-    <label>Index</label>
+    @Html.LabelFor(model=> model.Index, "Index")
     <br />
-    <input type="text" name="Index" value="@ViewBag.Category.Index" />
+    @Html.EditorFor(model => model.Index)
     <br />
     <button type="submit">Modify category</button>
-
-</form>
+}

@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity;
+@model ASPForum.Models.Subject
 @{
     ViewBag.Title = "ASPForum";
 }
@@ -6,14 +7,14 @@
 <div class="container category-container">
     <div class="row">
         <div class="col-auto">
-            <h2>@ViewBag.Subject.Name</h2>
+            <h2>@Model.Name</h2>
         </div>
 
     </div>
 
     @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
     {
-        <form method="post" action="/Subject/Delete/@ViewBag.Subject.Id">
+        <form method="post" action="/Subject/Delete/@Model.Id">
             <button type="submit" class="btn btn-danger m-1">Delete Subject</button>
         </form>
         <br />
@@ -21,7 +22,7 @@
         <p class="col-auto align-self-center"> Change parent category:</p>
         foreach (var category in ViewBag.Categories)
         {
-            <a class="col-auto align-self-center" href="/Subject/MoveSubject/@ViewBag.Subject.Id/@category.Id">@category.Name</a>
+            <a class="col-auto align-self-center" href="/Subject/MoveSubject/@Model.Id/@category.Id">@category.Name</a>
             <br />
         }
 
@@ -33,7 +34,7 @@
     @if (ViewBag.NewThreadRight)
     {
 
-        <form method="get" action="/Subject/AddThread/@ViewBag.Subject.Id">
+        <form method="get" action="/Subject/AddThread/@Model.Id">
             <button type="submit" class="btn btn-primary m-1">New Thread</button>
         </form>
     }
@@ -44,7 +45,7 @@
         {
 
             <div class="row align-content-center align-bottom">
-                <a class="col-auto align-self-center" href="/Thread/Show/@thread.Id">
+                <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryid/@Model.Id/@thread.Id">
                     <div class="category-title">@thread.Name</div>
 
                 </a>

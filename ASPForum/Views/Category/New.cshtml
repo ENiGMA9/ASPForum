@@ -1,4 +1,4 @@
-﻿
+﻿@model ASPForum.Models.Category
 @{
     ViewBag.Title = "New";
 }
@@ -6,14 +6,17 @@
 <h2>Creating a new category</h2>
 
 
-<form method="post" action="/Category/New">
+@using (Html.BeginForm(actionName: "New", controllerName: "Category", method: FormMethod.Post))
+{
 
-    <label>Nume</label>
-    <input type="text" name="Name" />
-
-    <label>Index</label>
-    <input type="text" name="Index" />
+    @Html.HiddenFor(model => model.Id)
 
 
-    <button type="submit">Adauga categorie</button>
-</form>
+    @Html.LabelFor(model => model.Name, "Name")
+    @Html.EditorFor(model => model.Name)
+
+    @Html.LabelFor(model => model.Index, "Index")
+    @Html.EditorFor(model => model.Index)
+
+    <button type="submit">Add category</button>
+}

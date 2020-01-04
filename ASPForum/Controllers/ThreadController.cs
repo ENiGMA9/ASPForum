@@ -75,24 +75,15 @@ namespace ASPForum.Controllers
             }
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show(int categoryId, int subjectId, int threadId)
         {
-            Thread thread = db.Threads.Find(id);
-            ViewBag.Thread = thread;
+            Thread thread = db.Threads.Include("Author").Include("Replies").Where(thrd => thrd.Id == threadId).FirstOrDefault<Thread>();
 
-            // Hack to fix old DB inserts
-            if(thread.Author == null && thread.AuthorId != null)
-            {
-                if (TryUpdateModel(thread))
-                {
-                    thread.Author = db.Users.FirstOrDefault(user => user.Id == thread.AuthorId);
-                    db.SaveChanges();
-                }
-            }
+            ViewBag.CategoryId = categoryId;
+            ViewBag.SubjectId = subjectId;
 
-            ViewBag.Replies = from reply in thread.Replies select reply;
             //ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
-            return View();
+            return View(thread);
         }
         
 
@@ -140,19 +131,20 @@ namespace ASPForum.Controllers
                 return View();
             }
         }
-        
+
 
         [HttpPost]
         [Authorize(Roles = "User, Administrator, Moderator")]
-        public ActionResult AddReply(Reply reply)
+        public ActionResult AddReply(int categoryId, int threadId, int subjectId, Reply reply)
         {
             try
             {
-                reply.AuthorId = User.Identity.GetUserId();
-                reply.Author = db.Users.FirstOrDefault(user => user.Id == reply.AuthorId);
-                db.Replies.Add(reply);
+                Reply actualReply = (Reply)reply;
+                actualReply.AuthorId = User.Identity.GetUserId();
+                actualReply.Author = db.Users.FirstOrDefault(user => user.Id == actualReply.AuthorId);
+                db.Replies.Add(actualReply);
                 db.SaveChanges();
-                return Redirect("/Category/Index");
+                return Redirect("/Thread/Show/" + categoryId + "/" + subjectId + "/" + threadId);
             }
             catch (Exception e)
             {

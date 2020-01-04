@@ -21,10 +21,9 @@ namespace ASPForum.Controllers
 
         public ActionResult Show(int id) {
             Category category = db.Categories.Find(id);
-            ViewBag.Category = category;
             var subjects = from subject in category.Subjects select subject;
             ViewBag.Subjects = subjects; 
-            return View(); 
+            return View(category); 
         }
 
         [HttpGet]
@@ -47,22 +46,28 @@ namespace ASPForum.Controllers
 
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id) {
-            Category category = db.Categories.Find(id);
-            ViewBag.Category = category;
-            return View();
+            return View(db.Categories.Find(id));
         }
 
         [HttpPut]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int id, Category requestCategory) {
+        public ActionResult Edit(Category requestCategory) {
             try {
-                Category category = db.Categories.Find(id);
-                if (TryUpdateModel(category)) {
-                    category.Name = requestCategory.Name;
-                    category.Index = requestCategory.Index;
-                    db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    Category category = db.Categories.Find(requestCategory.Id);
+                    if (TryUpdateModel(category))
+                    {
+                        category.Name = requestCategory.Name;
+                        category.Index = requestCategory.Index;
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                else
+                {
+                    return View(requestCategory);
+                }
             }catch (Exception e) {
                 return View();
             }
