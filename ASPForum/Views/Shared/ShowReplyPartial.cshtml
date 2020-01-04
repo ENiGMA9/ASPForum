@@ -12,7 +12,7 @@
                 </div>
                 @if ((Model.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
                     <div class="col reply-details">
-                        <form method="post" action="/Thread/DeleteReply/@Model.ThreadId/@Model.Id">
+                        <form method="post" action="/Reply/Delete/@ViewBag.CategoryId/@ViewBag.SubjectId/@Model.Id">
                             @Html.HttpMethodOverride(HttpVerbs.Delete)
                             <button type="submit" class="btn btn-danger m-1">Delete reply</button>
                         </form>
@@ -20,7 +20,7 @@
                 }
                 @if((Model.Author.Id == User.Identity.GetUserId())) {
                     <div class="col reply-details">
-                        <form method="post" action="/Thread/EditReply/@Model.ThreadId/@Model.Id">
+                        <form method="get" action="/Reply/Edit/@ViewBag.CategoryId/@Model.Thread.Id/@Model.Id">
                             <button type="submit" class="btn btn-warning">Edit Reply</button>
                         </form>
                     </div>

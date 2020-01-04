@@ -15,8 +15,8 @@ namespace ASPForum.Models
         [Required]
         public int Index { get; set; }
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        [Required]
+        public virtual Category Category { get; set; }
 
         public virtual ICollection<Thread> Threads { get; set; }
         

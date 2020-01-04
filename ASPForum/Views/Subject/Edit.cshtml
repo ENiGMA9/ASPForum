@@ -1,0 +1,30 @@
+﻿@model ASPForum.Models.Subject
+@{
+    ViewBag.Title = "Edit Subject";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Subject", method: FormMethod.Post))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(model => model.Category)
+
+    @Html.LabelFor(model => model.Name, "Name")
+    <br />
+
+    @Html.EditorFor(model => model.Name)
+    <br /><br />
+    @Html.LabelFor(model => model.Index, "Index")
+    <br />
+    @Html.EditorFor(model => model.Index)
+    <br />
+
+    @Html.DropDownList("categoryId", new SelectList(ViewBag.Categories, "Value", "Text"), "Pick Category", new { @class = "form-control" })
+
+    <br />
+
+    <button type="submit">Modify subject</button>
+}

@@ -1,6 +1,6 @@
 ﻿@model ASPForum.Models.Category
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Category";
 }
 
 <h2>Edit</h2>
@@ -10,7 +10,7 @@
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
-    @Html.LabelFor(model=> model.Name, "Nume")
+    @Html.LabelFor(model=> model.Name, "Name")
     <br />
 
     @Html.EditorFor( model => model.Name)

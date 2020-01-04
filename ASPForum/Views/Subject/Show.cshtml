@@ -7,6 +7,7 @@
 <div class="container category-container">
     <div class="row">
         <div class="col-auto">
+
             <h2>@Model.Name</h2>
         </div>
 
@@ -14,18 +15,20 @@
 
     @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
     {
-        <form method="post" action="/Subject/Delete/@Model.Id">
+
+
+        using (Html.BeginForm(actionName: "Delete", controllerName: "Subject", method: FormMethod.Post))
+        {
+            @Html.Hidden("id", Model.Id)
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+
             <button type="submit" class="btn btn-danger m-1">Delete Subject</button>
-        </form>
+        }
         <br />
 
-        <p class="col-auto align-self-center"> Change parent category:</p>
-        foreach (var category in ViewBag.Categories)
-        {
-            <a class="col-auto align-self-center" href="/Subject/MoveSubject/@Model.Id/@category.Id">@category.Name</a>
-            <br />
-        }
-
+        <input class="btn btn-warning m-1" type="button"
+               value="Edit"
+               onclick="location.href='@Url.Action("Edit", "Subject", new { id = Model.Id})'" />
         <br />
     }
 
@@ -39,17 +42,17 @@
         </form>
     }
 
-    @if (ViewBag.Threads != null)
+    @if (Model.Threads != null)
     {
-        foreach (var thread in ViewBag.Threads)
+        foreach (var thread in Model.Threads)
         {
 
             <div class="row align-content-center align-bottom">
-                <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryid/@Model.Id/@thread.Id">
+                <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryId/@Model.Id/@thread.Id">
                     <div class="category-title">@thread.Name</div>
 
                 </a>
-                @if ((thread.AuthorId == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                @if ((thread.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
                 {
                     <form method="post" action="/Thread/Delete/@thread.Id">
 

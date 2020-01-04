@@ -202,6 +202,22 @@
     <Compile Include="Migrations\202001031507023_UserModelUpdate.Designer.cs">
       <DependentUpon>202001031507023_UserModelUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001040422254_removedIds.cs" />
+    <Compile Include="Migrations\202001040422254_removedIds.Designer.cs">
+      <DependentUpon>202001040422254_removedIds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001040549579_addedRequired.cs" />
+    <Compile Include="Migrations\202001040549579_addedRequired.Designer.cs">
+      <DependentUpon>202001040549579_addedRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001040554398_addedRequired2.cs" />
+    <Compile Include="Migrations\202001040554398_addedRequired2.Designer.cs">
+      <DependentUpon>202001040554398_addedRequired2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001040705405_textareaandsome.cs" />
+    <Compile Include="Migrations\202001040705405_textareaandsome.Designer.cs">
+      <DependentUpon>202001040705405_textareaandsome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\View\AccountViewModels.cs" />
     <Compile Include="Models\DB\Category.cs" />
@@ -388,12 +404,10 @@
     <Content Include="Views\Thread\Show.cshtml" />
     <Content Include="Views\Shared\ShowReplyPartial.cshtml" />
     <Content Include="Views\Shared\ProfilePartial.cshtml" />
-    <Content Include="Views\Shared\AddReplyPartial.cshtml" />
-    <Content Include="Views\Thread\EditReply.cshtml" />
+    <Content Include="Views\Reply\Edit.cshtml" />
+    <Content Include="Views\Subject\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Reply\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -414,6 +428,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001031507023_UserModelUpdate.resx">
       <DependentUpon>202001031507023_UserModelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001040422254_removedIds.resx">
+      <DependentUpon>202001040422254_removedIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001040549579_addedRequired.resx">
+      <DependentUpon>202001040549579_addedRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001040554398_addedRequired2.resx">
+      <DependentUpon>202001040554398_addedRequired2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001040705405_textareaandsome.resx">
+      <DependentUpon>202001040705405_textareaandsome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

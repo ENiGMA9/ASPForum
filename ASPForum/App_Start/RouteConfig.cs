@@ -17,14 +17,27 @@ namespace ASPForum
             routes.MapRoute(
                 name: "ShowSubject",
                 url: "Subject/Show/{categoryId}/{subjectId}",
-                defaults: new { controller = "Subject", action = "Show", categoryid = 0, subjectId = 0}
+                defaults: new { controller = "Subject", action = "Show", categoryid = 0, subjectId = 0 }
             );
 
             routes.MapRoute(
                 name: "ShowThread",
                 url: "Thread/Show/{categoryId}/{subjectId}/{threadId}",
-                defaults: new { controller = "Thread", action = "Show", categoryid = 0, subjectId = 0, threadId = 0}
+                defaults: new { controller = "Thread", action = "Show", categoryid = 0, subjectId = 0, threadId = 0 }
             );
+
+            routes.MapRoute(
+              name: "EditReply",
+              url: "Reply/Edit/{categoryId}/{threadId}/{replyId}",
+              defaults: new { controller = "Reply", action = "Edit", categoryid = 0, threadId = 0, replyId = 0 }
+              );
+
+            routes.MapRoute(
+             name: "DeleteReply",
+             url: "Reply/Delete/{categoryId}/{subjectId}/{replyId}",
+             defaults: new { controller = "Reply", action = "Delete", categoryid = 0, subjectId = 0, replyId = 0 }
+             );
+
 
             routes.MapRoute(
                 name: "ExtraId",

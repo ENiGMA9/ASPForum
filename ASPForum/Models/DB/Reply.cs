@@ -9,14 +9,13 @@ namespace ASPForum.Models
         public int Id { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
-        public string AuthorId { get; set; }
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
-        public int ThreadId { get; set; }
-
-        public Thread Thread { get; set; }
+        [Required]
+        public virtual Thread Thread { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ASPForum.Models.Subject
+
+@{
     ViewBag.Title = "Add Subject";
 }
 
@@ -6,17 +8,17 @@
 
 @using (Html.BeginForm(actionName: "AddSubject", controllerName: "Category", method: FormMethod.Post))
 {
-    @Html.Hidden("CategoryId", (int)ViewBag.CategoryId)
+    @Html.Hidden("categoryId", (int)ViewBag.CategoryId)
     @Html.AntiForgeryToken()
 
-    @Html.Label("Subject:")
+    @Html.LabelFor(model => model.Name, "Subject:")
     <br />
-    @Html.TextBox("Name")
+    @Html.EditorFor(model => model.Name)
 
     <br />
-    @Html.Label("Index:")
+    @Html.LabelFor(model => model.Index, "Index:")
     <br />
-    @Html.TextBox("Index", "0")
+    @Html.EditorFor(model => model.Index)
 
     <br />
     <button type="submit" class="btn btn-success">Add Subject</button>

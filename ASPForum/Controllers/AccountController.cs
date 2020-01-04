@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ASPForum.Controllers
 {
@@ -152,9 +153,11 @@ namespace ASPForum.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ApplicationDbContext));
+
                     await UserManager.AddToRoleAsync(user.Id, "User");
-                    
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+           
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

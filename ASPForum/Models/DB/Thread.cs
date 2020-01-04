@@ -11,14 +11,16 @@ namespace ASPForum.Models
 
         [Required]
         public string Name { get; set; }
-
-        public int SubjectId { get; set; }
-        public Subject Subject {get; set;}
+       
+        [Required]
+        public virtual Subject Subject {get; set;}
         public virtual ICollection<Reply> Replies { get; set; }
 
-        public string AuthorId { get; set; }
+        [Required]
         public virtual ApplicationUser Author { get; set; }
 
+        [Required]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
         public DateTime CreatedAt { get; set; }

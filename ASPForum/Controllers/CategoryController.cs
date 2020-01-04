@@ -92,17 +92,17 @@ namespace ASPForum.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator, Moderator")]
-        public ActionResult AddSubject(Subject subject)
+        public ActionResult AddSubject(int categoryId, Subject subject)
         {
             try
             {
+                subject.Category = db.Categories.FirstOrDefault(cat => cat.Id == categoryId);
                 db.Subjects.Add(subject);
                 db.SaveChanges();
-                return Redirect("/Subject/Show/" + subject.Id);
+                return Redirect("/Subject/Show/"+categoryId + "/" + subject.Id);
             }
             catch (Exception e)
             {
-                // ViewBag.CategoryId = subject.CategoryId;
                 return View();
             }
         }

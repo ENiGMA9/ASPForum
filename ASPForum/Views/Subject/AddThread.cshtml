@@ -1,21 +1,22 @@
-﻿@{
+﻿@model ASPForum.Models.Thread
+
+@{
     ViewBag.Title = "Add Thread";
 }
 
 <h2>Add Thread</h2>
 
-<form method="post" action="/Subject/AddThread">
+@using (Html.BeginForm(actionName: "AddThread", controllerName: "Subject", method: FormMethod.Post))
+{
+    @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
 
-    <input type="hidden" name="AuthorId" value="@ViewBag.UserId" />
-    <input type="hidden" name="SubjectId" value="@ViewBag.SubjectId" />
+    @Html.LabelFor(model => model.Name , "Thread name:")
     <br />
-    <label>Thread name:</label>
+    @Html.EditorFor(model => model.Name)
     <br />
-    <input type="text" name="Name" />
+    @Html.LabelFor(model => model.Content, "Content:")
     <br />
-    <label>Content:</label>
+    @Html.EditorFor(model => model.Content)
     <br />
-    <input type="text" name="Content" />
-    <br />
-    <button type="submit">Open Thread</button>
-</form>
+    <button type="submit" class="btn btn-info mr-1">Open Thread</button>
+}

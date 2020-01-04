@@ -40,7 +40,7 @@
             @Html.Hidden("threadId", Model.Id)
             @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
 
-            @Html.TextBox("Content")
+            @Html.TextArea("Content","")
 
             <button type="submit" class="btn btn-primary">Reply</button>
         }

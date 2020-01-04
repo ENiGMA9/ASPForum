@@ -1,6 +1,7 @@
 ﻿using ASPForum.Models;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,10 +17,8 @@ namespace ASPForum.Controllers
                              orderby category.Index
                              select category;
             ViewBag.Categories = categories;
-            Subject subject = db.Subjects.Find(subjectId);
+            Subject subject = db.Subjects.Include("Threads").FirstOrDefault(sub => sub.Id == subjectId);
             ViewBag.NewThreadRight = User.IsInRole("User") || User.IsInRole("Moderator") || User.IsInRole("Administrator");
-            var threads = from thread in subject.Threads select thread;
-            ViewBag.Threads = threads;
             ViewBag.hasModeratorRight = (User.IsInRole("Administrator") || User.IsInRole("Moderator"));
             ViewBag.categoryId = categoryId;
             return View(subject);
@@ -64,54 +63,82 @@ namespace ASPForum.Controllers
 
         [HttpPost]
         [Authorize(Roles = "User, Administrator, Moderator")]
-        public ActionResult AddThread(Thread thread)
+        public ActionResult AddThread(int subjectId, Thread thread)
         {
             try
             {
-                thread.AuthorId = User.Identity.GetUserId();
-                thread.Author = db.Users.FirstOrDefault(user => user.Id == thread.AuthorId);
+                var authorId = User.Identity.GetUserId();
+                thread.Author = db.Users.FirstOrDefault(user => user.Id == authorId);
+                thread.Subject = db.Subjects.Include("Category").FirstOrDefault(sub => sub.Id == subjectId);
                 db.Threads.Add(thread);
+                db.SaveChanges();
+                return Redirect("/Subject/Show/" + thread.Subject.Category.Id + "/" + subjectId);
+            }
+            catch (Exception e)
+            {
+                // ViewBag.CategoryId = subject.CategoryId;
+                ViewBag.SubjectId = subjectId;
+                return View();
+            }
+        }
+
+        [NonAction]
+        public IEnumerable<SelectListItem> GetAllCategories()
+        {
+            var selectList = new List<SelectListItem>();
+            var categories = from category in db.Categories select category;
+            foreach (var category in categories)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Name
+                });
+            }
+
+            return selectList;
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = ("Administrator, Moderator"))]
+        public ActionResult Delete(int id)
+        {
+            Subject subject = db.Subjects.Find(id);
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
+            return Redirect("/Category/Index");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(int id)
+        {
+            ViewBag.Categories = GetAllCategories();
+            return View(db.Subjects.FirstOrDefault(sub => sub.Id == id));
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(Subject requestSubject, int? categoryId)
+        {
+            try
+            {
+                Subject subject = db.Subjects.Find(requestSubject.Id);
+
+                subject.Name = requestSubject.Name;
+                subject.Index = requestSubject.Index;
+                if (categoryId.HasValue)
+                {
+                    subject.Category = db.Categories.FirstOrDefault(cat => cat.Id == categoryId);
+                }
+                
                 db.SaveChanges();
                 return Redirect("/Category/Index");
             }
             catch (Exception e)
             {
-                // ViewBag.CategoryId = subject.CategoryId;
-                return View();
+                return View(requestSubject);
             }
         }
-
-        [HttpDelete]
-        [Authorize(Roles=("Administrator, Moderator"))]
-        public ActionResult Delete(int id) {
-            Subject subject = db.Subjects.Find(id);
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-       
-        [Authorize(Roles = "Administrator, Moderator")]
-        public ActionResult MoveSubject(int id, int id2) {
-            try {
-                Subject subject = db.Subjects.Find(id);
-                Category OldCategory = db.Categories.Find(id);
-                Category newCategory = db.Categories.Find(id2);
-
-                subject.CategoryId = id2;
-                subject.Category = newCategory;
-
-                OldCategory.Subjects.Remove(subject);
-                newCategory.Subjects.Add(subject);
-
-                db.SaveChanges();
-
-                return Redirect("/Category/Index");
-            }
-            catch (Exception e) {
-                return View();
-            }
-        }
-        
 
     }
 }

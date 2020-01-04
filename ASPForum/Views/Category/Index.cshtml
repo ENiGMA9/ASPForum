@@ -1,10 +1,10 @@
 ﻿
 @{
-                /**/
+    /**/
 
-                /**/
+    /**/
 
-                ViewBag.Title = "ASPForum";
+    ViewBag.Title = "ASPForum";
 }
 
 <h2>ASPForum</h2>
@@ -50,6 +50,21 @@
                                 <a class="col" href="/Subject/Show/@category.Id/@subject.Id">
                                     <p class="col-auto">@subject.Name</p>
                                 </a>
+
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Subject", method: FormMethod.Post))
+                                {
+                                    @Html.Hidden("id", (int)subject.Id)
+
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                                    <button type="submit" class="btn btn-danger m-1">Delete Subject</button>
+                                }
+                                <br />
+
+                                <input class="btn btn-warning m-1" type="button"
+                                       value="Edit"
+                                       onclick="location.href='@Url.Action("Edit", "Subject", new { id = subject.Id})'" />
+                                <br />
                             </div>
                         }
                         @if (category.Subjects == null || category.Subjects.Count == 0)

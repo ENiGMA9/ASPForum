@@ -1,0 +1,25 @@
+﻿@model ASPForum.Models.Reply
+@{
+    ViewBag.Title = "Edit Reply";
+}
+
+<h2>Edit Reply</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Reply", method: FormMethod.Post))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.Hidden("categoryId", (int)ViewBag.CategoryId)
+    @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
+    @Html.Hidden("threadId", Model.Thread.Id)
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Author)
+
+    @Html.LabelFor(model => model.Content, "Content:")
+    <br />
+    @Html.EditorFor(model => model.Content)
+    <br /><br />
+
+    <button type="submit" class="btn btn-info">Save Changes</button>
+}
