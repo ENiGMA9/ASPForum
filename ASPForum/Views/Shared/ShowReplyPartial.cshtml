@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity;
+﻿@model ASPForum.Models.Reply
+@using Microsoft.AspNet.Identity;
 
 <div class="container reply-container">
     <div class="row main-row">
@@ -6,28 +7,48 @@
             @Html.Partial("ProfilePartial", (Object)Model.Author)
         </div>
         <div class="col content-col">
-            <div class="row">
+            <div class="row details-row">
                 <div class="col reply-details">
                     @Model.CreatedAt
                 </div>
-                @if ((Model.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator")) {
-                    <div class="col reply-details">
-                        <form method="post" action="/Reply/Delete/@ViewBag.CategoryId/@ViewBag.SubjectId/@Model.Id">
-                            @Html.HttpMethodOverride(HttpVerbs.Delete)
-                            <button type="submit" class="btn btn-danger m-1">Delete reply</button>
-                        </form>
-                    </div>
+
+
+                @if ((Model.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                {
+
+
+
+                    using (Html.BeginForm(actionName: "Delete", controllerName: "Reply", method: FormMethod.Post))
+                    {
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        @Html.Hidden("categoryId", (int)ViewBag.CategoryId)
+                        @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
+                        @Html.Hidden("replyId", Model.Id)
+
+                        <button type="submit" class="custom-button"><i class="fa fa-trash-o"></i></button>
+                    }
+
+
                 }
-                @if((Model.Author.Id == User.Identity.GetUserId())) {
-                    <div class="col reply-details">
-                        <form method="get" action="/Reply/Edit/@ViewBag.CategoryId/@Model.Thread.Id/@Model.Id">
-                            <button type="submit" class="btn btn-warning">Edit Reply</button>
-                        </form>
-                    </div>
+                @if ((Model.Author.Id == User.Identity.GetUserId()))
+                {
+                    /*
+                    
+                    using (Html.BeginForm(actionName: "Edit", controllerName: "Reply", method: FormMethod.Get))
+                    {
+                        @Html.Hidden("categoryId", (int)ViewBag.CategoryId)
+                        @Html.Hidden("threadId", (int)ViewBag.ThreadId)
+                        @Html.Hidden("replyId", (int)Model.Id)
+
+                        <button type="submit" class="custom-button"><i class="fa fa-edit"></i></button>
+                    }*/
+
+                    <a href="/Reply/Edit/@ViewBag.CategoryId/@ViewBag.ThreadId/@Model.Id"><i class="fa fa-edit"></i></a>
+
                 }
             </div>
-            <div class="row">
-                <div class="col reply-copntent">
+            <div class="row content-row">
+                <div class="col reply-content">
                     @Model.Content
                 </div>
             </div>

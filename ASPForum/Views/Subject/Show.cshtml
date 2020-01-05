@@ -4,72 +4,77 @@
     ViewBag.Title = "ASPForum";
 }
 
-<div class="container category-container">
-    <div class="row">
-        <div class="col-auto">
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-auto card-title ml-2">
+                @Model.Name
+            </div>
 
-            <h2>@Model.Name</h2>
-        </div>
-
-    </div>
-
-    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
-    {
-
-
-        using (Html.BeginForm(actionName: "Delete", controllerName: "Subject", method: FormMethod.Post))
-        {
-            @Html.Hidden("id", Model.Id)
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-
-            <button type="submit" class="btn btn-danger m-1">Delete Subject</button>
-        }
-        <br />
-
-        <input class="btn btn-warning m-1" type="button"
-               value="Edit"
-               onclick="location.href='@Url.Action("Edit", "Subject", new { id = Model.Id})'" />
-        <br />
-    }
-
-    <hr />
-
-    @if (ViewBag.NewThreadRight)
-    {
-
-        <form method="get" action="/Subject/AddThread/@Model.Id">
-            <button type="submit" class="btn btn-primary m-1">New Thread</button>
-        </form>
-    }
-
-    @if (Model.Threads != null)
-    {
-        foreach (var thread in Model.Threads)
-        {
-
-        <div class="row align-content-center align-bottom">
-            <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryId/@Model.Id/@thread.Id">
-                <div class="category-title">@thread.Name</div>
-
-            </a>
-            @if ((thread.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
             {
 
-                using (Html.BeginForm(actionName: "Delete", controllerName: "Thread", method: FormMethod.Post))
+
+                using (Html.BeginForm(actionName: "Edit", controllerName: "Subject", method: FormMethod.Get))
                 {
-                    @Html.Hidden("threadId", thread.Id)
-                    @Html.Hidden("categoryId", Model.Category.Id)
-                    @Html.Hidden("subjectId", Model.Id)
+                    @Html.Hidden("id", Model.Id)
+
+                    <button type="submit" class="custom-button"><i class="fa fa-edit"></i></button>
+                }
+
+                using (Html.BeginForm(actionName: "Delete", controllerName: "Subject", method: FormMethod.Post))
+                {
+                    @Html.Hidden("id", Model.Id)
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                    <button type="submit" class="btn btn-danger m-1">Delete Thread</button>
+                    <button type="submit" class="custom-button"><i class="fa fa-trash-o"></i></button>
                 }
             }
         </div>
+        <hr />
+
+        @if (ViewBag.NewThreadRight)
+        {
+            using (Html.BeginForm(actionName: "AddThread", controllerName: "Subject", method: FormMethod.Get))
+            {
+                @Html.Hidden("id", Model.Id)
+
+                <button type="submit" class="custom-button">
+                    <i class="fa fa-plus"></i>
+                    Thread
+                </button>
+            }
         }
-    }
-    else
-    {
-        <div>This subject has no threads.</div>
-    }
+
+        @if (Model.Threads != null)
+        {
+            foreach (var thread in Model.Threads)
+            {
+
+                <div class="row align-content-center align-bottom">
+                    <a class="col-auto align-self-center" href="/Thread/Show/@ViewBag.categoryId/@Model.Id/@thread.Id">
+                        <div class="category-title">@thread.Name</div>
+
+                    </a>
+                    @if ((thread.Author.Id == User.Identity.GetUserId()) || User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                    {
+
+                        using (Html.BeginForm(actionName: "Delete", controllerName: "Thread", method: FormMethod.Post))
+                        {
+                            @Html.Hidden("threadId", thread.Id)
+                            @Html.Hidden("categoryId", Model.Category.Id)
+                            @Html.Hidden("subjectId", Model.Id)
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                            <button type="submit" class="custom-button"><i class="fa fa-trash-o"></i></button>
+                        }
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div>This subject has no threads.</div>
+        }
+    </div>
 </div>

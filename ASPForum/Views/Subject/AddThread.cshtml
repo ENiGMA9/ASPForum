@@ -1,22 +1,26 @@
 ﻿@model ASPForum.Models.Thread
 
 @{
-    ViewBag.Title = "Add Thread";
+    ViewBag.Title = "Open Thread";
 }
 
-<h2>Add Thread</h2>
+<h2 class="page-title">Open Thread</h2>
 
-@using (Html.BeginForm(actionName: "AddThread", controllerName: "Subject", method: FormMethod.Post))
-{
-    @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm(actionName: "AddThread", controllerName: "Subject", method: FormMethod.Post,  htmlAttributes: new { @class = "form-group" }))
+        {
+            @Html.Hidden("subjectId", (int)ViewBag.SubjectId)
 
-    @Html.LabelFor(model => model.Name , "Thread name:")
-    <br />
-    @Html.EditorFor(model => model.Name)
-    <br />
-    @Html.LabelFor(model => model.Content, "Content:")
-    <br />
-    @Html.EditorFor(model => model.Content)
-    <br />
-    <button type="submit" class="btn btn-info mr-1">Open Thread</button>
-}
+            @Html.LabelFor(model => model.Name, "Thread name:")
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control"} })
+            <br />
+
+            @Html.LabelFor(model => model.Content, "Content:")
+            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control text-area"} })
+            <br />
+
+            <button type="submit" class="btn btn-info mr-1">Open Thread</button>
+        }
+        </div>
+</div>

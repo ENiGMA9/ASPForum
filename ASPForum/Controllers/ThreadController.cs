@@ -81,6 +81,7 @@ namespace ASPForum.Controllers
 
             ViewBag.CategoryId = categoryId;
             ViewBag.SubjectId = subjectId;
+            ViewBag.ThreadId = thread.Id;
 
             //ViewBag.HasThreadDeleteRight = thread.AuthorId == User.Identity.GetUserId() || User.IsInRole("Administrator") || User.IsInRole("Moderator");
             return View(thread);

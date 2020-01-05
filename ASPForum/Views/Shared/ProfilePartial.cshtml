@@ -1,4 +1,5 @@
-﻿<div class="profile-container">
+﻿@model ASPForum.Models.ApplicationUser
+<div class="profile-container">
     <div class="row">
         <div class="col">
             @Model.UserName
@@ -13,9 +14,13 @@
     </div>
 
 
-    <div class="row">
-        <div class="col">
-            Other Details
+    @if (Model.Location != null)
+    {
+        <div class="row">
+            <div class="col">
+                Location: @Model.Location
+            </div>
         </div>
-    </div>
+    }
+
 </div>

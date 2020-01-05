@@ -13,42 +13,53 @@
 {
     foreach (var category in ViewBag.Categories)
     {
-        <div class="container category-container">
+        <div class="container card category-container">
             <div class="row">
                 <div class="col">
                     <div class="row align-content-center align-bottom">
                         <a class="col-auto align-self-center" href="/Category/Show/@category.Id">
                             <div class="category-title">@category.Name</div>
                         </a>
+                        <div class="col">
+
+                        </div>
                         @if (ViewBag.hasRights)
                         {
 
-                            <input class="btn btn-primary m-1" type="button"
-                                   value="Add Subject"
-                                   onclick="location.href='@Url.Action("AddSubject", "Category", new { id = category.Id})'" />
+                            using (Html.BeginForm(actionName: "Edit", controllerName: "Category", method: FormMethod.Get))
+                            {
+                                @Html.Hidden("id", (int)category.Id)
 
-
-                            <input class="btn btn-warning m-1" type="button"
-                                   value="Edit"
-                                   onclick="location.href='@Url.Action("Edit", "Category", new { id = category.Id})'" />
-
+                                <button type="submit" class="custom-button"><i class="fa fa-edit"></i></button>
+                            }
 
                             using (Html.BeginForm(actionName: "Delete", controllerName: "Category", method: FormMethod.Post))
                             {
                                 @Html.Hidden("id", (int)category.Id)
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                <button type="submit" class="btn btn-danger m-1">Delete Category</button>
+                                <button type="submit" class="custom-button"><i class="fa fa-trash-o"></i></button>
                             }
                         }
                     </div>
                     <hr />
-                    <div class=" subjects-container">
+                    <div class="subjects-container">
+
+                        @using (Html.BeginForm(actionName: "AddSubject", controllerName: "Category", method: FormMethod.Get))
+                        {
+                            @Html.Hidden("id", (int)category.Id)
+
+                            <button type="submit" class="custom-button">
+                                <i class="fa fa-plus"></i>
+                                Subject
+                            </button>
+                        }
+
                         @foreach (var subject in category.Subjects)
                         {
                             <div class="row">
-                                <a class="col" href="/Subject/Show/@category.Id/@subject.Id">
-                                    <p class="col-auto">@subject.Name</p>
+                                <a class="col-auto" href="/Subject/Show/@category.Id/@subject.Id">
+                                    <div class="col-auto">@subject.Name</div>
                                 </a>
 
                                 @using (Html.BeginForm(actionName: "Delete", controllerName: "Subject", method: FormMethod.Post))
@@ -57,14 +68,17 @@
 
                                     @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                    <button type="submit" class="btn btn-danger m-1">Delete Subject</button>
+                                    <button type="submit" class="custom-button"><i class="fa fa-trash-o"></i></button>
                                 }
                                 <br />
 
-                                <input class="btn btn-warning m-1" type="button"
-                                       value="Edit"
-                                       onclick="location.href='@Url.Action("Edit", "Subject", new { id = subject.Id})'" />
-                                <br />
+                                @using (Html.BeginForm(actionName: "Edit", controllerName: "Subject", method: FormMethod.Get))
+                                {
+                                    @Html.Hidden("id", (int)subject.Id)
+
+                                    <button type="submit" class="custom-button"><i class="fa fa-edit"></i></button>
+                                }
+
                             </div>
                         }
                         @if (category.Subjects == null || category.Subjects.Count == 0)

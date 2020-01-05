@@ -3,21 +3,25 @@
     ViewBag.Title = "Edit Category";
 }
 
-<h2>Edit</h2>
+<h2 class="page-title">Edit</h2>
 
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm(actionName: "Edit", controllerName: "Category", method: FormMethod.Post, htmlAttributes: new { @class = "form-group" }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Put)
 
-@using (Html.BeginForm(actionName: "Edit", controllerName: "Category", method: FormMethod.Post))
-{
-    @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.HiddenFor(model => model.Id)
 
-    @Html.LabelFor(model=> model.Name, "Name")
-    <br />
+            @Html.LabelFor(model => model.Name, "Name")
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
 
-    @Html.EditorFor( model => model.Name)
-    <br /><br />
-    @Html.LabelFor(model=> model.Index, "Index")
-    <br />
-    @Html.EditorFor(model => model.Index)
-    <br />
-    <button type="submit">Modify category</button>
-}
+            <br />
+            @Html.LabelFor(model => model.Index, "Index")
+            @Html.EditorFor(model => model.Index, new { htmlAttributes = new { @class = "form-control" } })
+            <br />
+
+            <button type="submit" class="btn btn-success">Save</button>
+        }
+    </div>
+</div>

@@ -9,82 +9,71 @@
 <div>
     <h4>Change your account details</h4>
     <hr />
-
-
-    @*
-        Avatar area
-    *@
-    @if (ViewBag.User.Avatar == null)
-    {
-        <div class="avatar-picture">
-            <img src="https://static.scientificamerican.com/blogs/cache/file/BB6F1FE0-4FDE-4E6E-A986664CE30602E4_source.jpg?w=590&h=800&2F8476C1-DF14-49BA-84FFE94218CC4933" />
-        </div>
-    }
-    else
-    {
-        <div class="avatar-picture">
-            <img src="@ViewBag.User.Avatar" />
-        </div>
-    }
-
     @using (Html.BeginForm(actionName: "ChangeAvatar", controllerName: "Manage", method: FormMethod.Post))
     {
+
+        @*
+            Avatar area
+        *@
+        if (ViewBag.User.Avatar == null)
+        {
+            <div class="avatar-picture">
+                <img src="https://static.scientificamerican.com/blogs/cache/file/BB6F1FE0-4FDE-4E6E-A986664CE30602E4_source.jpg?w=590&h=800&2F8476C1-DF14-49BA-84FFE94218CC4933" />
+            </div>
+        }
+        else
+        {
+            <div class="avatar-picture">
+                <img src="@ViewBag.User.Avatar" />
+            </div>
+        }
+
+
         @Html.AntiForgeryToken()
         @Html.Label("Avatar link")
         <br />
         @Html.TextBox("newAvatar", "https://static.scientificamerican.com/blogs/cache/file/BB6F1FE0-4FDE-4E6E-A986664CE30602E4_source.jpg?w=590&h=800&2F8476C1-DF14-49BA-84FFE94218CC4933");
         <br />
-        <button type="submit" class="btn btn-success">Change your Avatar</button>
-    }
-    <br />
 
-    @*
-        E-mail area
-    *@
-    @using (Html.BeginForm(actionName: "ChangeEmail", controllerName: "Manage", method: FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+        <br />
+
+        @*
+            E-mail area
+        *@
+
 
         @Html.Label("E-mail")
         <br />
         @Html.TextBox("newEmail", (string)@ViewBag.User.Email);
         <br />
-        <button type="submit" class="btn btn-success">Save</button>
-    }
-    <br />
 
-    @*
-        Location area
-    *@
-    @using (Html.BeginForm(actionName: "ChangeLocation", controllerName: "Manage", method: FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+        <br />
+
+        @*
+            Location area
+        *@
+
 
         @Html.Label("Location")
         <br />
         @Html.TextBox("newLocation", (string)@ViewBag.User.Location);
         <br />
-        <button type="submit" class="btn btn-success">Save</button>
-    }
-    <br />
+
+        <br />
 
 
-    @*
-        Description area
-    *@
-    @using (Html.BeginForm(actionName: "ChangeDescription", controllerName: "Manage", method: FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+        @*
+            Description area
+        *@
 
         @Html.Label("Description")
         <br />
         @Html.TextArea("newDescription", (string)@ViewBag.User.Description);
         <br />
-        <button type="submit" class="btn btn-success">Save</button>
+
+        <br />
+
     }
-    <br />
-
-
     @*
         Roles area
     *@

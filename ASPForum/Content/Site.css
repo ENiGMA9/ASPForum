@@ -1,5 +1,14 @@
 ﻿
 /* Set padding to keep content from hitting the edges */
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f7f7f7;
+    color: black;
+}
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -19,9 +28,8 @@ textarea {
     max-width: 280px;
 }
 
-div.category-container {
-    background-color: lightblue;
-    margin-bottom: 20px;
+div.category-container hr {
+    margin-top: 0px !important;
 }
 
 .category-container .category-title {
@@ -29,16 +37,65 @@ div.category-container {
 }
 
 .profile-container {
-    background-color: gray;
+    border-right: solid 1px #f5f5f5;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .reply-row {
-    background-color: yellow;
+    *background-color: yellow;
     padding-bottom: 50px;
-    border: solid 1px black;
+    border-top: solid 1px lightgray;
 }
 
-.avatar-picture img{
+.details-row {
+    border-bottom: solid 1px #f5f5f5;
+}
+
+.thread-post{
+    border-bottom: solid 1px lightgray;
+}
+
+.avatar-picture img {
     width: 200px;
     height: 200px;
+}
+
+a {
+    color: black;
+    transition: color 0.2s;
+    text-decoration: none !important;
+}
+
+    a :hover {
+        color: gray;
+        transition: color 0.2s;
+        text-decoration: none !important;
+    }
+
+.custom-button {
+    background: none;
+    color: gray;
+    border: none;
+    transition: color 0.2s;
+    font-size: 20px;
+    align-self: center;
+    vertical-align: middle;
+}
+
+    .custom-button:hover {
+        color: black;
+        transition: color 0.2s;
+    }
+
+.card {
+    margin-bottom: 20px;
+}
+
+.row {
+    *align-items: center;
+}
+
+.text-area {
+    width: 600px;
 }

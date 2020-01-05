@@ -3,28 +3,29 @@
     ViewBag.Title = "Edit Subject";
 }
 
-<h2>Edit</h2>
+<h2 class="page-title">Edit</h2>
+
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm(actionName: "Edit", controllerName: "Subject", method: FormMethod.Post,  htmlAttributes: new { @class = "form-group" }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.HiddenFor(model => model.Id)
 
 
-@using (Html.BeginForm(actionName: "Edit", controllerName: "Subject", method: FormMethod.Post))
-{
-    @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.LabelFor(model => model.Name, "Name")
+            @Html.EditorFor(model => model.Name,  new { htmlAttributes = new { @class = "form-control"} })
+            <br />
 
-    @Html.HiddenFor(model => model.Category)
+            @Html.LabelFor(model => model.Index, "Index")
+            @Html.EditorFor(model => model.Index,  new { htmlAttributes = new { @class = "form-control"} })
+            <br />
 
-    @Html.LabelFor(model => model.Name, "Name")
-    <br />
+            @Html.DropDownList("categoryId", new SelectList(ViewBag.Categories, "Value", "Text"), "Pick Category", new { @class = "form-control" })
 
-    @Html.EditorFor(model => model.Name)
-    <br /><br />
-    @Html.LabelFor(model => model.Index, "Index")
-    <br />
-    @Html.EditorFor(model => model.Index)
-    <br />
+            <br />
 
-    @Html.DropDownList("categoryId", new SelectList(ViewBag.Categories, "Value", "Text"), "Pick Category", new { @class = "form-control" })
-
-    <br />
-
-    <button type="submit">Modify subject</button>
-}
+            <button type="submit" class="btn btn-success">Save</button>
+        }
+    </div>
+</div>
