@@ -12,6 +12,10 @@ namespace ASPForum.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string Avatar { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
+        public string Email { get; set; }
     }
 
     public class ManageLoginsViewModel

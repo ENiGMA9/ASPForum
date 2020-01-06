@@ -16,6 +16,8 @@ namespace ASPForum.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+
         public ManageController()
         {
         }
@@ -64,8 +66,8 @@ namespace ASPForum.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-
-            ViewBag.User = UserManager.FindById(userId);
+            ApplicationUser UserRef = UserManager.FindById(userId);
+            ViewBag.User = UserRef;
             ViewBag.UserRoles = UserManager.GetRoles(userId);
             var model = new IndexViewModel
             {
@@ -73,9 +75,51 @@ namespace ASPForum.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Description = UserRef.Description,
+                Location = UserRef.Location,
+                Avatar = UserRef.Avatar,
+                Email = UserRef.Email
             };
             return View(model);
+        }
+
+        [HttpPut]
+        public ActionResult EditProfile(IndexViewModel viewModel)
+        {
+            try
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+
+                if (viewModel.Avatar != null)
+                {
+                    user.Avatar = viewModel.Avatar;
+                }
+
+                if (viewModel.Email != null)
+                {
+                    user.Email = viewModel.Email;
+                    user.EmailConfirmed = false;
+                }
+
+                if (viewModel.Location != null)
+                {
+                    user.Location = viewModel.Location;
+                }
+
+                if (viewModel.Description != null)
+                {
+                    user.Description = viewModel.Description;
+                }
+
+                UserManager.Update(user);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            } catch (Exception e)
+            {
+                return View();
+            }
         }
 
         //

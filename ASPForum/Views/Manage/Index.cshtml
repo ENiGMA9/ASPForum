@@ -9,30 +9,21 @@
 <div>
     <h4>Change your account details</h4>
     <hr />
-    @using (Html.BeginForm(actionName: "ChangeAvatar", controllerName: "Manage", method: FormMethod.Post))
+    @using (Html.BeginForm(actionName: "EditProfile", controllerName: "Manage", method: FormMethod.Post))
     {
+        @Html.HttpMethodOverride(HttpVerbs.Put)
 
         @*
             Avatar area
         *@
-        if (ViewBag.User.Avatar == null)
-        {
-            <div class="avatar-picture">
-                <img src="https://static.scientificamerican.com/blogs/cache/file/BB6F1FE0-4FDE-4E6E-A986664CE30602E4_source.jpg?w=590&h=800&2F8476C1-DF14-49BA-84FFE94218CC4933" />
-            </div>
-        }
-        else
-        {
-            <div class="avatar-picture">
-                <img src="@ViewBag.User.Avatar" />
-            </div>
-        }
 
+        <div class="avatar-picture">
+            <img src="@Model.Avatar" />
+        </div>
 
         @Html.AntiForgeryToken()
-        @Html.Label("Avatar link")
-        <br />
-        @Html.TextBox("newAvatar", "https://static.scientificamerican.com/blogs/cache/file/BB6F1FE0-4FDE-4E6E-A986664CE30602E4_source.jpg?w=590&h=800&2F8476C1-DF14-49BA-84FFE94218CC4933");
+        @Html.LabelFor(model => model.Avatar, "Avatar link")
+        @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } });
         <br />
 
         <br />
@@ -42,9 +33,8 @@
         *@
 
 
-        @Html.Label("E-mail")
-        <br />
-        @Html.TextBox("newEmail", (string)@ViewBag.User.Email);
+        @Html.LabelFor(model => model.Email, "E-mail")
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } });
         <br />
 
         <br />
@@ -54,9 +44,8 @@
         *@
 
 
-        @Html.Label("Location")
-        <br />
-        @Html.TextBox("newLocation", (string)@ViewBag.User.Location);
+        @Html.LabelFor(model => model.Location, "Location")
+        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } });
         <br />
 
         <br />
@@ -66,12 +55,13 @@
             Description area
         *@
 
-        @Html.Label("Description")
-        <br />
-        @Html.TextArea("newDescription", (string)@ViewBag.User.Description);
+        @Html.LabelFor(model => model.Description, "Description")
+        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } });
         <br />
 
         <br />
+
+        <button type="submit" class="btn btn-success">Save</button>
 
     }
     @*

@@ -99,13 +99,18 @@ namespace ASPForum.Controllers
                 reply.Author = db.Users.FirstOrDefault(user => user.Id == authorId);
                 reply.Thread = db.Threads.FirstOrDefault(thrd => thrd.Id == threadId);
                 db.Replies.Add(reply);
+
+                if (reply.Content == null)
+                {
+                    return Redirect("/Thread/Show/" + categoryId + "/" + subjectId + "/" + threadId);
+                }
                 db.SaveChanges();
                 return Redirect("/Thread/Show/" + categoryId + "/" + subjectId + "/" + threadId);
             }
             catch (Exception e)
             {
                 // ViewBag.CategoryId = subject.CategoryId;
-                return View();
+                return View("/Category/Index");
             }
         }
     }

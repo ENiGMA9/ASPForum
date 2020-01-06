@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202001040705405_textareaandsome.Designer.cs">
       <DependentUpon>202001040705405_textareaandsome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001061523340_WTF.cs" />
+    <Compile Include="Migrations\202001061523340_WTF.Designer.cs">
+      <DependentUpon>202001061523340_WTF.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\View\AccountViewModels.cs" />
     <Compile Include="Models\DB\Category.cs" />
@@ -447,6 +451,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001040705405_textareaandsome.resx">
       <DependentUpon>202001040705405_textareaandsome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061523340_WTF.resx">
+      <DependentUpon>202001061523340_WTF.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -6,20 +6,22 @@
 
 <h2>Add Subject</h2>
 
-@using (Html.BeginForm(actionName: "AddSubject", controllerName: "Category", method: FormMethod.Post))
-{
-    @Html.Hidden("categoryId", (int)ViewBag.CategoryId)
-    @Html.AntiForgeryToken()
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm(actionName: "AddSubject", controllerName: "Category", method: FormMethod.Post))
+        {
+            @Html.Hidden("categoryId", (int)ViewBag.CategoryId)
+            @Html.AntiForgeryToken()
 
-    @Html.LabelFor(model => model.Name, "Subject:")
-    <br />
-    @Html.EditorFor(model => model.Name)
+            @Html.LabelFor(model => model.Name, "Subject:")
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
 
-    <br />
-    @Html.LabelFor(model => model.Index, "Index:")
-    <br />
-    @Html.EditorFor(model => model.Index)
+            <br />
+            @Html.LabelFor(model => model.Index, "Index:")
+            @Html.EditorFor(model => model.Index, new { htmlAttributes = new { @class = "form-control" } })
 
-    <br />
-    <button type="submit" class="btn btn-success">Add Subject</button>
-}
+            <br />
+            <button type="submit" class="btn btn-success">Add Subject</button>
+        }
+        </div>
+</div>

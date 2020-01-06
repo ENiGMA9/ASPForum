@@ -44,6 +44,16 @@ namespace ASPForum
                 var role = new IdentityRole();
                 role.Name = "Moderator";
                 roleManager.Create(role);
+
+                // se adauga utilizatorul administrator
+                var user = new ApplicationUser();
+                user.UserName = "mod@mod.com";
+                user.Email = "mod@mod.com";
+                var moderatorCreated = userManager.Create(user, "Moderator1!");
+                if (moderatorCreated.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "Moderator");
+                }
             }
             if (!roleManager.RoleExists("User"))
             {
